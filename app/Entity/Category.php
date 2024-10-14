@@ -40,7 +40,7 @@ class Category
     #[ManyToOne(inversedBy: 'categories')]
     private User $user;
 
-    #[OneToMany(mappedBy: 'categories', targetEntity: Transactions::class)]
+    #[OneToMany(mappedBy: 'category', targetEntity: Transactions::class)]
     private Collection $transactions;
 
     public function __construct()
