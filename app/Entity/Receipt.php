@@ -12,7 +12,7 @@ use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping\Table;
 
 #[Entity, Table(name: 'receipt')]
-class receipt
+class Receipt
 {
     #[Id, Column(options: ['unsigned'=> true]), GeneratedValue]
     private string $id;
