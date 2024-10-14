@@ -15,26 +15,29 @@ use Doctrine\ORM\Mapping\Table;
 #[Entity, Table('users')]
 Class User {
 
-    #[Id, Column(options: ['unsigned'=> true]), GeneratedValue]
+    #[Id, Column(options: ['unsigned' => true]), GeneratedValue]
     private int $id;
 
     #[Column]
     private string $name;
+
     #[Column]
     private string $email;
+
     #[Column]
     private string $password;
 
     #[Column(name: 'created_at')]
     private \DateTime $createdAt;
+
     #[Column(name: 'updated_at')]
     private \DateTime $updatedAt;
 
-    #[OneToMany(mappedBy: 'user', targetEntity: Transaction::class)]
-    private Collection $transactions;
-
     #[OneToMany(mappedBy: 'user', targetEntity: Category::class)]
     private Collection $categories;
+
+    #[OneToMany(mappedBy: 'user', targetEntity: Transaction::class)]
+    private Collection $transactions;
 
     public function __construct()
     {
@@ -83,9 +86,9 @@ Class User {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTime $createdAt): void
+    public function setCreatedAt(\DateTime $createdAt): \DateTime
     {
-        $this->createdAt = $createdAt;
+        return $this->createdAt;
     }
 
     public function getUpdatedAt(): \DateTime
@@ -93,9 +96,9 @@ Class User {
         return $this->updatedAt;
     }
 
-    public function setUpdatedAt(\DateTime $updatedAt): void
+    public function setUpdatedAt(\DateTime $updatedAt): \DateTime
     {
-        $this->updatedAt = $updatedAt;
+        return $this->updatedAt;
     }
 
     public function getTransactions(): Collection
@@ -103,12 +106,6 @@ Class User {
         return $this->transactions;
     }
 
-    public function addTransaction(Transaction $transactions): User
-    {
-        $this->transactions->add($transactions);
-
-        return $this;
-    }
     public function getCategories(): Collection
     {
         return $this->categories;
@@ -121,4 +118,10 @@ Class User {
         return $this;
     }
 
+    public function addTransaction(Transaction $transactions): User
+    {
+        $this->transactions->add($transactions);
+
+        return $this;
+    }
 }

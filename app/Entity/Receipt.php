@@ -14,22 +14,19 @@ use Doctrine\ORM\Mapping\Table;
 #[Entity, Table(name: 'receipt')]
 class Receipt
 {
-    #[Id, Column(options: ['unsigned'=> true]), GeneratedValue]
-    private string $id;
+    #[Id, Column(options: ['unsigned' => true]), GeneratedValue]
+    private int $id;
 
-    #[Column(name: 'file_name')]
-    private string $fileName;
-
-    #[Column(name: 'transaction_id')]
-    private int $transactionId;
+    #[Column]
+    private string $file_name;
 
     #[Column(name: 'created_at')]
     private \DateTime $createdAt;
 
-    #[ManyToOne(inversedBy: 'receipt')]
-    private Transaction $transactions;
+    #[ManyToOne(inversedBy: 'receipts')]
+    private Transaction $transaction;
 
-    public function getId(): string
+    public function getId(): int
     {
         return $this->id;
     }
@@ -44,15 +41,6 @@ class Receipt
         $this->fileName = $fileName;
     }
 
-    public function getTransactionId(): int
-    {
-        return $this->transactionId;
-    }
-
-    public function setTransactionId(int $transactionId): void
-    {
-        $this->transactionId = $transactionId;
-    }
 
     public function getCreatedAt(): \DateTime
     {
@@ -77,7 +65,4 @@ class Receipt
         $this->transactions = $transaction;
         return $this;
     }
-
-
-
 }

@@ -18,20 +18,17 @@ use Doctrine\ORM\Mapping\Table;
 #[Entity, Table(name: 'transactions')]
 class Transaction
 {
-    #[Id, Column(options: ['unsigned'=> true]), GeneratedValue]
-    private string $id;
-
-    #[Column(name: 'amount', Type: Types::DECIMAL, precision: 13, scale: 2)]
-    private float $amount;
+    #[Id, Column(options: ['unsigned' => true]), GeneratedValue]
+    private int $id;
 
     #[Column]
     private string $description;
 
-    #[Column(name: 'category_id')]
-    private string $categoryIdd;
+    #[Column]
+    private \DateTime $date;
 
-    #[Column(name: 'user_id')]
-    private string $userId;
+    #[Column(type: Types::DECIMAL, precision: 13, scale: 3)]
+    private float $amount;
 
     #[Column(name: 'created_at')]
     private \DateTime $createdAt;
@@ -39,16 +36,13 @@ class Transaction
     #[Column(name: 'updated_at')]
     private \DateTime $updatedAt;
 
-    #[Column]
-    private \DateTime $date;
-
     #[ManyToOne(inversedBy: 'transactions')]
     private User $user;
 
     #[ManyToOne(inversedBy: 'transactions')]
     private Category $category;
 
-    #[OneToMany(mappedBy: 'transactions', targetEntity: Receipt::class)]
+    #[OneToMany(mappedBy: 'transaction', targetEntity: Receipt::class)]
     private Collection $receipts;
 
     public function __construct()
@@ -56,7 +50,7 @@ class Transaction
         $this->receipts = new ArrayCollection();
     }
 
-    public function getId(): string
+    public function getId(): int
     {
         return $this->id;
     }
@@ -89,16 +83,6 @@ class Transaction
     public function setCategoryIdd(string $categoryIdd): void
     {
         $this->categoryIdd = $categoryIdd;
-    }
-
-    public function getUserId(): string
-    {
-        return $this->userId;
-    }
-
-    public function setUserId(string $userId): void
-    {
-        $this->userId = $userId;
     }
 
     public function getCreatedAt(): \DateTime

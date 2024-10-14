@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use Doctrine\Common\Collections\Collection;
-
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Entity;
@@ -14,22 +13,15 @@ use Doctrine\ORM\Mapping\Id;
 use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping\OneToMany;
 use Doctrine\ORM\Mapping\Table;
-use PhpParser\Node\Expr\Array_;
 
 #[Entity, Table(name: 'categories')]
 class Category
 {
-    #[Id, Column(options: ['unsigned'=> true]), GeneratedValue]
-    private string $id;
+    #[Id, Column(options: ['unsigned' => true]), GeneratedValue]
+    private int $id;
 
     #[Column]
     private string $name;
-
-    #[Column(name: 'transaction_id')]
-    private int $transactionId;
-
-    #[Column(name: 'user_id')]
-    private int $userId;
 
     #[Column(name: 'created_at')]
     private \DateTime $createdAt;
@@ -48,7 +40,7 @@ class Category
         $this->transactions = new ArrayCollection();
     }
 
-    public function getId(): string
+    public function getId(): int
     {
         return $this->id;
     }
@@ -60,26 +52,6 @@ class Category
     public function setName(string $name): void
     {
         $this->name = $name;
-    }
-
-    public function getTransactionId(): int
-    {
-        return $this->transactionId;
-    }
-
-    public function setTransactionId(int $transactionId): void
-    {
-        $this->transactionId = $transactionId;
-    }
-
-    public function getUserId(): int
-    {
-        return $this->userId;
-    }
-
-    public function setUserId(int $userId): void
-    {
-        $this->userId = $userId;
     }
 
     public function getCreatedAt(): \DateTime
@@ -126,7 +98,5 @@ class Category
 
         return $this;
     }
-
-
 
 }
