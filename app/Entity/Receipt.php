@@ -27,6 +27,57 @@ class Receipt
     private \DateTime $createdAt;
 
     #[ManyToOne(inversedBy: 'receipt')]
-    private Transactions $transactions;
+    private Transaction $transactions;
+
+    public function getId(): string
+    {
+        return $this->id;
+    }
+
+    public function getFileName(): string
+    {
+        return $this->fileName;
+    }
+
+    public function setFileName(string $fileName): void
+    {
+        $this->fileName = $fileName;
+    }
+
+    public function getTransactionId(): int
+    {
+        return $this->transactionId;
+    }
+
+    public function setTransactionId(int $transactionId): void
+    {
+        $this->transactionId = $transactionId;
+    }
+
+    public function getCreatedAt(): \DateTime
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTime $createdAt): Receipt
+    {
+        $this->createdAt = $createdAt;
+        return $this;
+    }
+
+    public function getTransactions(): Transaction
+    {
+        return $this->transactions;
+    }
+
+    public function setTransaction(Transaction $transaction): Receipt
+    {
+        $transaction->addReceipt($this);
+
+        $this->transactions = $transaction;
+        return $this;
+    }
+
+
 
 }

@@ -30,7 +30,7 @@ Class User {
     #[Column(name: 'updated_at')]
     private \DateTime $updatedAt;
 
-    #[OneToMany(mappedBy: 'user', targetEntity: Transactions::class)]
+    #[OneToMany(mappedBy: 'user', targetEntity: Transaction::class)]
     private Collection $transactions;
 
     #[OneToMany(mappedBy: 'user', targetEntity: Category::class)]
@@ -41,6 +41,84 @@ Class User {
         $this->transactions = new ArrayCollection();
         $this->categories = new ArrayCollection();
 
+    }
+
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): void
+    {
+        $this->name = $name;
+    }
+
+    public function getEmail(): string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): void
+    {
+        $this->email = $email;
+    }
+
+    public function getPassword(): string
+    {
+        return $this->password;
+    }
+
+    public function setPassword(string $password): void
+    {
+        $this->password = $password;
+    }
+
+    public function getCreatedAt(): \DateTime
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTime $createdAt): void
+    {
+        $this->createdAt = $createdAt;
+    }
+
+    public function getUpdatedAt(): \DateTime
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(\DateTime $updatedAt): void
+    {
+        $this->updatedAt = $updatedAt;
+    }
+
+    public function getTransactions(): Collection
+    {
+        return $this->transactions;
+    }
+
+    public function addTransaction(Transaction $transactions): User
+    {
+        $this->transactions->add($transactions);
+
+        return $this;
+    }
+    public function getCategories(): Collection
+    {
+        return $this->categories;
+    }
+
+    public function addCategory(Category $category): User
+    {
+        $this->categories->add($category);
+
+        return $this;
     }
 
 }
